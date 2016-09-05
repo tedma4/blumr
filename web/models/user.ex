@@ -28,4 +28,11 @@ defmodule Blumr.User do
     :pending_users, 
     :current_location
   ]
+
+  def changeset(model, params \\ :empty) do
+    model
+    |> cast(params, ~w(name user_name), [])
+    |> validate_length(:user_name, min: 1, max: 25)
+
+  end
 end

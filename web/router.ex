@@ -15,8 +15,9 @@ defmodule Blumr.Router do
 
   scope "/", Blumr do
     pipe_through :browser # Use the default browser stack
-    get "/users", UserController, :index
-    get "/users/:id", UserController, :show
+    resources "/users", UserController
+    # get "/users", UserController, :index
+    # get "/users/:id", UserController, :show
 
     get "/", PageController, :index
   end
@@ -24,7 +25,8 @@ defmodule Blumr.Router do
   # Other scopes may use custom stacks.
   scope "/api", Blumr do
     pipe_through :api
-    get "/users", UserController, :index
-    get "/users/:id", UserController, :show
+    resources "/users", Api.UserController, except: [:new, :edit]
+    # get "/api/users", UserController, :index
+    # get "/users/:id", UserController, :show
   end
 end

@@ -1,4 +1,4 @@
-defmodule Blumr.UserView do
+defmodule Blumr.Api.UserView do
 	use Blumr.Web, :view
 	alias Blumr.User 
 
@@ -6,11 +6,11 @@ defmodule Blumr.UserView do
 	# 	name |> String.split(" ") |> Enum.at(0)
 	# end
   def render("index.json", %{users: users}) do
-    %{data: render_many(users, Blumr.UserView, "user.json")}
+    %{data: render_many(users, Blumr.Api.UserView, "user.json")}
   end
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, Blumr.UserView, "user.json")}
+    %{data: render_one(user, Blumr.Api.UserView, "user.json")}
   end
 
   def render("user.json", %{user: user}) do
