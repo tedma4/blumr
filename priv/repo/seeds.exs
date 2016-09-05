@@ -9,3 +9,26 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+Faker.start
+alias Blumr.User
+alias Blumr.Repo
+
+for _ <- 1..10000 do 
+
+	val = %User{
+	  pin: "1234",
+	  email: Faker.Internet.email,
+	  first_name: Faker.Name.first_name,
+	  last_name: Faker.Name.last_name,
+	  user_name: Faker.Internet.user_name,
+	  followed_users: Enum.to_list(0..10),
+	  pending_users: Enum.to_list(0..10),
+	  current_location: [ Faker.Address.latitude, Faker.Address.longitude ],
+	  password: "password",
+	  password_hash: "password"
+
+	}
+
+	Repo.insert!(val)
+
+end

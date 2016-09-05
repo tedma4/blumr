@@ -9,7 +9,7 @@ defmodule Blumr do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      # supervisor(Blumr.Repo, []), # Uncomment this when the db is needed
+      supervisor(Blumr.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Blumr.Endpoint, []),
       # Start your own worker by calling: Blumr.Worker.start_link(arg1, arg2, arg3)
