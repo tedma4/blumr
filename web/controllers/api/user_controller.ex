@@ -3,6 +3,11 @@ defmodule Blumr.Api.UserController do
 	# require "IEx"
 	alias Blumr.User
 
+	def new(conn, _params) do
+		changeset = User.changeset(%User{})
+		render conn, "new.html", changeset: changeset
+	end
+
 	def index(conn, _params) do
 		# IEx.pry
 		users = Repo.all(User)

@@ -25,8 +25,6 @@ defmodule Blumr.Router do
   # Other scopes may use custom stacks.
   scope "/api", Blumr do
     pipe_through :api
-    resources "/users", Api.UserController, except: [:new, :edit]
-    # get "/api/users", UserController, :index
-    # get "/users/:id", UserController, :show
+    resources "/users", Api.UserController
   end
 end
