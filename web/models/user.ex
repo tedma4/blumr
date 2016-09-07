@@ -31,8 +31,9 @@ defmodule Blumr.User do
 
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, ~w(name user_name), [])
+    |> cast(params, ~w(first_name last_name user_name email password pin), [])
     |> validate_length(:user_name, min: 1, max: 25)
+    # |> validate_length(:first_name, min: 1)
 
   end
 end
