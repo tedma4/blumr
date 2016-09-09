@@ -33,7 +33,25 @@ defmodule Blumr.User do
     model
     |> cast(params, ~w(first_name last_name user_name email password pin), [])
     |> validate_length(:user_name, min: 1, max: 25)
-    # |> validate_length(:first_name, min: 1)
-
+    |> validate_length(:first_name, min: 1)
+    |> validate_length(:last_name, min: 1)
   end
+
+  def registration_changeset(model, params) do 
+    model
+    |> changeset(params)
+    |> cast(params, ~w(password), [])
+    |> validate_length(:password, min: 8, max: 100) 
+    |> put_pass_hash()
+  end
+
+  defp put_pass_hash(changeset) do case changeset do
+    %Ecto.Changeset{valid?: true, changes: %{password: pass}} -> 
+      changeset
+      |> put_change( :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+    _ ->
+      changeset
+    end 
+  end
+
 end
