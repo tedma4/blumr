@@ -1,6 +1,6 @@
 defmodule Blumr.UserController do
 	use Blumr.Web, :controller
-	plug :authenticate when action in [:index, :show]
+	plug :authenticate_user when action in [:index, :show]
 	# require "IEx"
 	alias Blumr.User
 
@@ -14,6 +14,7 @@ defmodule Blumr.UserController do
 		case Repo.insert(changeset) do 
 			{:ok, user} -> 
 				conn
+				|> Blumr.Auth.login(user)
 				|> put_flash(:info, "#{user.first_name} created!")
 				|> redirect(to: user_path(conn, :index))
 			{:error, changeset} -> 
@@ -29,16 +30,5 @@ defmodule Blumr.UserController do
 	def show(conn, %{"id" => id}) do
 		user = Repo.get(User, id)
 		render conn, "show.html", user: user
-	end
-
-	defp authenticate(conn, _opts) do
-		if conn.assigns.current_user do
-			conn
-		else
-			conn
-			|> put_flash(:error, "You gotta be logged_in to do that")
-			|> redirect(to: page_path(conn, :index))
-			|> halt()
-		end
 	end
 end

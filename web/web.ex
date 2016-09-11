@@ -36,6 +36,7 @@ defmodule Blumr.Web do
 
       import Blumr.Router.Helpers
       import Blumr.Gettext
+      import Blumr.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -58,6 +59,7 @@ defmodule Blumr.Web do
   def router do
     quote do
       use Phoenix.Router
+      import Blumr.Auth, only: [authenticate_user: 2]
     end
   end
 
