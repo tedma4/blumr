@@ -13,6 +13,7 @@ defmodule Blumr.User do
     field :followed_users, {:array, :integer}, default: []
     field :pending_users, {:array, :integer}, default: []
     field :current_location, {:array, :float}, default: []
+    has_many :videos, Blumr.Video
 
     timestamps
   end
