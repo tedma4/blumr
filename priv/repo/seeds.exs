@@ -11,6 +11,8 @@
 # and so on) as they will fail if something goes wrong.
 Faker.start
 alias Blumr.User
+alias Blumr.Category
+alias Blumr.Video
 alias Blumr.Repo
 
 for _ <- 1..10000 do 
@@ -28,6 +30,11 @@ for _ <- 1..10000 do
 		  password: "password"
 		}
 	)
+end
+
+for category <- ~w(Action Drama Independent Romance Sci-fi Comedy) do
+	Repo.get_by!(Category, name: category) ||
+	Repo.insert!(%Category{name: category})
 end
 
 # for user <- Repo.all(User) do 

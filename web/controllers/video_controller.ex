@@ -2,6 +2,8 @@ defmodule Blumr.VideoController do
   use Blumr.Web, :controller
   plug :authenticate_user when action in [:index, :show]
   plug :scrub_params, "videos" when action in [:update, :create]
+  alias Blumr.Category
+  plug :load_categories when action in [:new, :create, :edit, :update]
 
   alias Blumr.Video
 
@@ -77,5 +79,14 @@ defmodule Blumr.VideoController do
 
   defp user_videos(user) do
     assoc(user, :videos)
+  end
+
+  defp load_categories(conn, _) do 
+    query = 
+      Category
+      |> Category.ordered_by_name
+      |> Category.names_and_ids
+      categories = Repo.all query
+      assign(conn, :categories, categories)
   end
 end

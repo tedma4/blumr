@@ -1,6 +1,8 @@
 defmodule Blumr.User do
 	# defstruct [:id, :name, :username, :password]
 	use Blumr.Web, :model
+  alias Blumr.User
+  alias Blumr.Repo
 
   schema "users" do
     field :pin, :string
@@ -54,5 +56,26 @@ defmodule Blumr.User do
       changeset
     end 
   end
+
+  def search(query) do
+    Repo.all from u in User,
+      where: ilike(u.first_name, ^"%#{query}%") or
+             ilike(u.last_name, ^"%#{query}%") or
+             ilike(u.user_name, ^"%#{query}%")
+  end
+
+  def search_with_pipes(query) do
+    User
+    |> where([u], ilike(u.first_name, ^"%#{query}%") or 
+                   ilike(u.last_name, ^"%#{query}%") or 
+                   ilike(u.user_name, ^"%#{query}%"))
+    |> Repo.all()
+  end
+  # A test Ecto join query
+  # Repo.all from u in User,
+  #   join: u in assoc(u, :videos),
+  #   join: c in assoc(v, :category).
+  #   where: c.name == "Comedy"
+  #   select: {u, v, c}
 
 end

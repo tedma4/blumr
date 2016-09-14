@@ -13,7 +13,7 @@ defmodule Blumr.SessionController do
 				|> redirect(to: page_path(conn, :index))
 			{:error, _reason, conn} ->
 				conn
-				|> put_flash(:error, "You fucked up somehow, try again")
+				|> put_flash(:error, "Something went wrong, try again")
 				|> render("new.html")
 		end
 	end
