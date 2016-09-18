@@ -26,6 +26,7 @@ defmodule Blumr.ConnCase do
       import Ecto.Query
 
       import Blumr.Router.Helpers
+      import Blumr.TestHelpers
 
       # The default endpoint for testing
       @endpoint Blumr.Endpoint

@@ -18,7 +18,7 @@ defmodule Blumr.Router do
     pipe_through :browser # Use the default browser stack
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    resources "/videos", VideoController
+    # resources "/videos", VideoController
     # get "/users", UserController, :index
     # get "/users/:id", UserController, :show
 

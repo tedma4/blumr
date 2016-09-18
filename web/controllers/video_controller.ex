@@ -1,7 +1,7 @@
 defmodule Blumr.VideoController do
   use Blumr.Web, :controller
   plug :authenticate_user when action in [:index, :show]
-  plug :scrub_params, "videos" when action in [:update, :create]
+  plug :scrub_params, "video" when action in [:update, :create]
   alias Blumr.Category
   plug :load_categories when action in [:new, :create, :edit, :update]
 

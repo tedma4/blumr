@@ -38,6 +38,8 @@ defmodule Blumr.User do
     |> validate_length(:user_name, min: 1, max: 25)
     |> validate_length(:first_name, min: 1)
     |> validate_length(:last_name, min: 1)
+    |> unique_constraint(:user_name)
+    |> unique_constraint(:email)
   end
 
   def registration_changeset(model, params) do 
@@ -73,9 +75,9 @@ defmodule Blumr.User do
   end
   # A test Ecto join query
   # Repo.all from u in User,
-  #   join: u in assoc(u, :videos),
-  #   join: c in assoc(v, :category).
-  #   where: c.name == "Comedy"
+  #   join: v in assoc(u, :videos),
+  #   join: c in assoc(v, :category),
+  #   where: c.name == "Comedy",
   #   select: {u, v, c}
 
 end

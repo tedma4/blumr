@@ -19,6 +19,7 @@ defmodule Blumr.Video do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:url, :title, :description])
+    |> assoc_constraint(:category)
     # |> validate_required([:url, :title, :description])
   end
 end
